@@ -34,7 +34,6 @@ def list_librarians(request):
             lib.email = row["email"]
 
             all_librarians.append(lib)
-    print(all_librarians)
     template_name = 'librarians/list.html'
 
     context = {
