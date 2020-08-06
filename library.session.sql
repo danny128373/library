@@ -18,12 +18,3 @@ INSERT INTO libraryapp_book
 VALUES
     ('The Golem and the Jinni', '8592475822', 2013, 1, 'Helene Wecker', 2);
 
-SELECT
-    l.id,
-    l.user_id,
-    l.location_id,
-    a.first_name,
-    a.last_name
-FROM libraryapp_librarian l
-    join auth_user a on user_id = a.id
-WHERE l.id = 2
