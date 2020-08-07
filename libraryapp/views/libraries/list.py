@@ -76,7 +76,6 @@ def list_libraries(request):
 
 def create_library(cursor, row):
     _row = sqlite3.Row(cursor, row)
-
     library = Library()
     library.id = _row["id"]
     library.title = _row["title"]

@@ -8,6 +8,7 @@ from ..connection import Connection
 
 
 def get_book(book_id):
+    # queries for one book of a certain book_id that is passed by urls when book_details gets called and then this function gets called by book_details
     with sqlite3.connect(Connection.db_path) as conn:
         conn.row_factory = create_book
         db_cursor = conn.cursor()
@@ -38,7 +39,7 @@ def get_book(book_id):
 
 @login_required
 def book_details(request, book_id):
-
+    # if user simply wants to check book details, book_id gets assigned from the urls.py and passed it as an argument to this function
     if request.method == 'GET':
         book = get_book(book_id)
         template_name = 'books/detail.html'

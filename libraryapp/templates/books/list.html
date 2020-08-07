@@ -12,7 +12,7 @@
         <div class="infoDialog__message"></div>
         <button class="closeDialog">Close</button>
     </dialog>
-
+    {% comment %} Link to populate form to add a new book to our inventory. path name is book_form {% endcomment %}
     <a href="{% url 'libraryapp:book_form' %}">Add Book to Inventory</a>
 
     <ol class="books">

@@ -11,10 +11,11 @@ from libraryapp.models import model_factory
 def book_list(request):
     if request.method == 'GET':
         with sqlite3.connect(Connection.db_path) as conn:
-
+            # row_factory has a default function, but we defined a custom model_factory function
             conn.row_factory = model_factory(Book)
 
             db_cursor = conn.cursor()
+            # querying all books from db using sqlite3
             db_cursor.execute("""
             select
                 b.id,
@@ -26,19 +27,21 @@ def book_list(request):
                 b.location_id
             from libraryapp_book b
             """)
-
+            # assigns list of instances of books to all_books
             all_books = db_cursor.fetchall()
-
+        # template we want to load to display the info we queried
         template = 'books/list.html'
+        # dict we are passing to our template to iterate (has to be dict)
         context = {
             'all_books': all_books
         }
-
+        # returns httprequest, the template, and the info we queried(context)
         return render(request, template, context)
-
+    # gets called when user wants to add a book
     elif request.method == 'POST':
+        # form_data gets assigned the dictionary of all the inputs from the user
         form_data = request.POST
-
+        # inserts and adds book to the db
         with sqlite3.connect(Connection.db_path) as conn:
             db_cursor = conn.cursor()
 
@@ -53,5 +56,5 @@ def book_list(request):
                               (form_data['title'], form_data['author'],
                                form_data['isbn'], form_data['year_published'],
                                request.user.librarian.id, form_data["location"]))
-
+        # redirects after post to /books where you can see your new book
         return redirect(reverse('libraryapp:books'))

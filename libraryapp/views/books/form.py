@@ -9,6 +9,7 @@ from ..books.details import get_book
 
 
 def get_libraries():
+    # Gets libraries to populate dropdown to add book to it.
     with sqlite3.connect(Connection.db_path) as conn:
         conn.row_factory = model_factory(Library)
         db_cursor = conn.cursor()
